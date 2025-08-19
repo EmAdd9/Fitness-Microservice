@@ -16,11 +16,11 @@ public class UserValidationService {
     public boolean validateUser(String userId){
         log.info("Calling USER Validation API for userId: {}", userId);
         try {
-            return userServiceWebClient.get()
-                    .uri("/api/users/{userId}/validate",userId)
+            return Boolean.TRUE.equals(userServiceWebClient.get()
+                    .uri("/api/users/{userId}/validate", userId)
                     .retrieve()
                     .bodyToMono(Boolean.class)
-                    .block();
+                    .block());
         }catch (WebClientResponseException ex){
           if(ex.getStatusCode() == HttpStatus.NOT_FOUND)
               throw new RuntimeException("USER NOT FOUND WITH ID: "+userId);

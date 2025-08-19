@@ -71,16 +71,6 @@ public class UserService {
 
     public Boolean existsById(String userId) {
         log.info("Calling USER Validation API for userId: {}", userId);
-        String keycloakId = null;
-        Optional<User> user = userRepository.findById(userId);
-        if(user.isPresent()){
-            User deriveduser = user.get();
-            keycloakId = deriveduser.getKeycloakId();
-        }
-        if(keycloakId != null){
-            return userRepository.existsByKeycloakId(keycloakId);
-        }else{
-            return false;
-        }
+        return userRepository.existsByKeycloakId(userId);
     }
 }
